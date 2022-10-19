@@ -30,3 +30,4 @@ Route::middleware('auth')
 
         Route::resource('posts', 'PostController');
     });
+
