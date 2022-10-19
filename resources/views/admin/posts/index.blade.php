@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('metaTitle', 'Posts')
+
 @section('content')
 
 <div class="container">
@@ -38,12 +40,10 @@
               <a href="{{ route('admin.posts.show',$post) }}" type="button" class="btn btn-secondary btn-sm">vedi</a>
             </td>
             <td>
-              <form action="{{ route('admin.posts.destroy',$post) }}" method="POST">
-      
+              <form action="{{route('admin.posts.destroy', $post)}}" method="POST" class="d-inline-block" onsubmit="return confirm('Sei sicuro di voler cancellare il post?')">
                 @csrf
                 @method('DELETE')
-        
-                <input type="submit" value="Elimina" class="btn btn-danger btn-sm">
+                <button class="btn btn-danger btn-sm" type="submit">Elimina</button>
               </form>
             </td>
           </tr>
