@@ -96,7 +96,7 @@ class PostController extends Controller
 
         $post->update($params);
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.show', $post);
     }
 
     /**
