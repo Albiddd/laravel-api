@@ -8,7 +8,6 @@
 
     <div class="container">
         <h1 class="font-weight-bolder">Modifica post:</h1>
-        <h2>{{$post->title}}</h2>
         <div class="row">
             <div class="col-12">
                 <form action="{{ route('admin.posts.update', $post)}}" method="POST">
@@ -26,6 +25,18 @@
                             </div>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label for="title" class="font-weight-bold">Categoria</label>
+                        <select name="category_id" class="form-control @error('content') is-invalid @enderror">
+                          <option value="" selected disabled hidden>Seleziona una categoria</option>
+                          @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">
+                              {{ $category->name }}
+                            </option>
+                          @endforeach
+                        </select>
+                      </div>
 
                     <div class="form-group">
                         <label for="content" class="font-weight-bold">Contenuto</label>
