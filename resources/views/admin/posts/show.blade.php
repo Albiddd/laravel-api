@@ -11,6 +11,12 @@
                 @if ($post->category)
                     <p><strong>Categoria:</strong> {{ $post->category->name }}</p>
                 @endif
+                <p><strong>Tags:</strong></p>
+                <ul>
+                    @foreach ($post->tags as $tag)
+                        <li>{{$tag->name}}</li>
+                    @endforeach
+                </ul>
                 <p><strong>Contenuto:</strong></p>
                 <p>{{ $post->content }}</p>
                 <div class="buttons mt-4 d-flex justify-content-between align-items-center">

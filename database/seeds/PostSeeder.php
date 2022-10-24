@@ -1,5 +1,6 @@
 <?php
 
+use App\Tag;
 use App\Post;
 use App\Category;
 use Illuminate\Database\Seeder;
@@ -18,6 +19,7 @@ class PostSeeder extends Seeder
     {
 
         $categoryIds = Category::all()->pluck('id');
+        $tags = Tag::all()->pluck('id');
 
         for ($i = 0; $i < 50; $i++) {
             $post = new Post();
@@ -27,6 +29,9 @@ class PostSeeder extends Seeder
             $post->category_id = $faker->optional()->randomElement($categoryIds);
 
             $post->save();
+
+            $tagIds = $tags->shuffle()->take(3)->all();
+            $post->tags()->sync($tagIds);
         }
     }
 }

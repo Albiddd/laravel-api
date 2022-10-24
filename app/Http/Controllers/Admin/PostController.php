@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Tag;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Category;
@@ -30,7 +31,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories') );
+        $tags = Tag::orderBy('name', 'asc')->get();
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -44,13 +46,18 @@ class PostController extends Controller
         $params = $request->validate([
             'title' => 'required|max:255|min:5',
             'content' => 'required',
-            'category_id'=> 'nullable|exists:categories,id'
+            'category_id'=> 'nullable|exists:categories,id',
+            'tags.*' => 'exists:tags,id'
         ]);
 
         $params['slug'] = Str::slug($params['title']);
 
         $post = Post::create($params);
-
+        
+        if (array_key_exists('tags', $params)) {
+            $post->tags()->sync($params['tags']);
+        }
+        
         return redirect()->route('admin.posts.show', $post);
     }
 
@@ -74,7 +81,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $tags = Tag::orderBy('name', 'asc')->get();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));	
     }
 
     /**
@@ -89,12 +97,19 @@ class PostController extends Controller
         $params = $request->validate([
             'title' => 'required|max:255|min:5',
             'content' => 'required',
-            'category_id'=> 'nullable|exists:categories,id'
+            'category_id'=> 'nullable|exists:categories,id',
+            'tags.*' => 'exists:tags,id'
         ]);
 
         $params['slug'] = Str::slug($params['title']);
 
         $post->update($params);
+
+        if (array_key_exists('tags', $params)) {
+            $post->tags()->sync($params['tags']);
+        } else {
+            $post->tags()->sync([]);
+        }
 
         return redirect()->route('admin.posts.show', $post);
     }
