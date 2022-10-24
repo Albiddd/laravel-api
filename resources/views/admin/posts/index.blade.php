@@ -41,7 +41,9 @@
             <td>
               <ul>
                 @foreach($post->tags as $tag)
+                <a href="{{ route('admin.tags.show',$tag) }}">
                   <li>{{ $tag->name }}</li>
+                </a>
                 @endforeach
               </ul>
             </td>
