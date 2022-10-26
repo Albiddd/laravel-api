@@ -7,6 +7,7 @@ use App\Tag;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Category;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -47,10 +48,17 @@ class PostController extends Controller
             'title' => 'required|max:255|min:5',
             'content' => 'required',
             'category_id'=> 'nullable|exists:categories,id',
-            'tags.*' => 'exists:tags,id'
+            'tags' => 'exists:tags,id',
+            'image' => 'nullable|max:2048'
         ]);
 
         $params['slug'] = Str::slug($params['title']);
+
+
+        if(array_key_exists('image',$params)){
+            $img_path =Storage::put('cover_path',$params['image']);
+            $params['cover'] = $img_path;
+        }
 
         $post = Post::create($params);
         
@@ -98,10 +106,19 @@ class PostController extends Controller
             'title' => 'required|max:255|min:5',
             'content' => 'required',
             'category_id'=> 'nullable|exists:categories,id',
-            'tags.*' => 'exists:tags,id'
+            'tags' => 'exists:tags,id',
+            'image' => 'nullable|max:2048'
         ]);
 
         $params['slug'] = Str::slug($params['title']);
+
+        if (array_key_exists('image', $params)) {
+            if ($post->cover) {
+                Storage::delete($post->cover);
+            }
+            $img_path = Storage::put('cover_path', $params['image']);
+            $params['cover'] = $img_path;
+        }
 
         $post->update($params);
 
@@ -122,7 +139,14 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $cover = $post->cover;
+    
         $post->delete();
+    
+
+        if($post->cover && Storage::exists($post->cover)){
+            Storage::delete($post->cover);
+        }
 
         return redirect()->route('admin.posts.index');
     }

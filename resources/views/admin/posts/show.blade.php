@@ -6,6 +6,9 @@
     <div class="container my-5">
         <div class="row py-5">
             <div class="col-8 m-auto bg-light p-5 ">
+                <div class="col-12">
+                    <img src=" {{$post->cover}} " width="400" alt="">
+                </div>
                 <h3 class="py-3"><strong>Titolo: </strong> {{ $post->title }}</h3>
                 <p><strong>Slug: </strong><em>{{ $post->slug }}</em></p>
                 @if ($post->category)

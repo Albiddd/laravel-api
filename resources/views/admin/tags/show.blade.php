@@ -7,6 +7,7 @@
         <div class="row py-5">
             @foreach($tag->posts()->orderBy('title','asc')->limit(5)->get() as $post)
             <div class="col-8 m-auto bg-light p-5 border-bottom ">
+            
                 <p class="pt-3"><strong>Titolo Tag: </strong></p>
                 <p class="pb-2">{{$tag->name}}</p>
                 <p><strong>Slug: </strong></p>
