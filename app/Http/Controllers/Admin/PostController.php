@@ -7,6 +7,8 @@ use App\Tag;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Category;
+use App\Mail\SendPostCreatedMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -66,6 +68,9 @@ class PostController extends Controller
             $post->tags()->sync($params['tags']);
         }
         
+        // Mail::to($request->user())->send(new SendPostCreatedMail($post));
+        Mail::to('ciccio.pasticcio@gmail.com')->send(new SendPostCreatedMail($post));
+
         return redirect()->route('admin.posts.show', $post);
     }
 
