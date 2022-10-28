@@ -2041,7 +2041,7 @@ var render = function render() {
       }
     });
   }), 1), _vm._v(" "), _c("div", {
-    staticClass: "container pt-12"
+    staticClass: "container mx-auto pt-12"
   }, [_c("ul", {
     staticClass: "flex gap-6 justify-center font-semibold"
   }, [_vm.currentPage !== 1 ? _c("li", {

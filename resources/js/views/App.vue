@@ -4,7 +4,7 @@
     <div class="container mx-auto grid grid-cols-4">
       <post-card v-for="post in posts" :key="post.id" :post="post"></post-card>
     </div>
-    <div class="container pt-12">
+    <div class="container mx-auto pt-12">
       <ul class="flex gap-6 justify-center font-semibold">
         <li v-if="currentPage !== 1" @click="fetchPosts(1)" 
         :class="{ 'w-8 h-8 flex items-center justify-center rounded-full' : true,
