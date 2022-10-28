@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('metaTitle')</title>
+    <title>Posts</title>
 
     
     <!-- Fonts -->
@@ -16,7 +16,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
 </head>
 

@@ -24,7 +24,13 @@ class Post extends Model
         return $this->belongsToMany('App\Tag');
     }
 
-    public function getCoverAttribute($value){
-        return asset('storage/'.$value);
+    public function getCoverPathAttribute(){
+        return $this->cover ? asset('storage/'. $this->cover) : null;
     }
+
+    public function getDateAttribute(){
+        return $this->created_at->format('d/m/Y');
+    }
+
+    protected $appends = ['cover_path', 'date'];
 }

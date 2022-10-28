@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin', function () {
     return view('welcome');
 });
 
@@ -37,8 +37,8 @@ Route::middleware('auth')
 // rotta di fallback che va definita alla fine
 // il parametro{any} prende tutte le rotte con il ? può anche essere opzionale  
 
-// Route::get('{any?}', function(){
-//     return view('guest.home');
-// })->where('any', '.*'); 
+Route::get('{any?}', function(){
+    return view('guest.home');
+})->where('any', '.*'); 
 
 //.* è un espressione regolare  che indice che il carattere può essere presente 0 o infinite volte
